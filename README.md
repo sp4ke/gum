@@ -23,7 +23,7 @@ The `Manager` handles communication and synchronized shutdown procedure.
 1. Create a unit manager
 2. Implement the `WorkUnit` on your goroutines
 3. Add units to the manager
-4. Start the manager and wait on it's `Quit` channel
+4. Start the manager and wait on its `Quit` channel
 
 ```golang
 import (
