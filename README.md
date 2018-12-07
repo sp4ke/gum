@@ -28,23 +28,23 @@ The `Manager` handles communication and synchronized shutdown procedure.
 ```golang
 func main() {
     // Create a unit manager
-	manager := gum.NewManager()
+    manager := gum.NewManager()
 
     // Subscribe to SIGINT
-	manager.SubscribeTo(os.Interrupt)
+    manager.SubscribeTo(os.Interrupt)
 
-	// NewWorker returns a type implementing WorkUnit interface
-	unit := NewWorker()
+    // NewWorker returns a type implementing WorkUnit interface unit :=
+    NewWorker()
 
     // Register the unit with the manager
-	manager.AddUnit(scheduler)
+    manager.AddUnit(scheduler)
 
     // Start the manager
-	go manager.Start()
+    go manager.Start()
 
 
     // Wait for all units to shutdown gracefully through their `Shutdown` method
-	<-manager.Quit
+    <-manager.Quit
 }
 
 ```
