@@ -37,7 +37,7 @@ type Manager struct {
 
 	workers map[string]*WorkUnitManager
 
-	quit chan bool
+	Quit chan bool
 }
 
 func (m *Manager) Start() {
