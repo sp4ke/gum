@@ -46,5 +46,4 @@ func main() {
     // Wait for all units to shutdown gracefully through their `Shutdown` method
     <-manager.Quit
 }
-
 ```
