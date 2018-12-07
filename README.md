@@ -6,7 +6,7 @@ Go Unit Manager is a simple Goroutine unit manager for GoLang.
 Features:
 
 - Scheduling of multiple goroutines.
-- Subscribe to `os.Signal` events.
+- Shutdown on `os.Signal` events.
 - Gracefull shutdown of units
 
 
@@ -70,8 +70,8 @@ func main() {
     // Create a unit manager
     manager := gum.NewManager()
 
-    // Subscribe to SIGINT
-    manager.SubscribeTo(os.Interrupt)
+    // Shutdown all units on SIGINT
+    manager.ShutdownOn(os.Interrupt)
 
     // NewWorker returns a type implementing WorkUnit interface unit :=
     worker := NewWorker()

@@ -78,7 +78,7 @@ func (m *Manager) Start() {
 	}
 }
 
-func (m *Manager) SubscribeTo(sig os.Signal) {
+func (m *Manager) ShutdownOn(sig os.Signal) {
 	signal.Notify(m.signal, sig)
 }
 
