@@ -72,7 +72,6 @@ func (m *Manager) Start() {
 			// All workers have shutdown
 			log.Println("All workers have shutdown, shutting down manager ...")
 
-			DB.Handle.Close()
 			m.quit <- true
 
 		}
