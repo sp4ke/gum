@@ -37,24 +37,24 @@ type Worker struct{}
 
 // Example loop, it will be spwaned in a goroutine
 func (w *Worker) Spawn(um UnitManager) {
-	ticker := time.NewTicker(time.Second)
+    ticker := time.NewTicker(time.Second)
 
     // Worker's loop
-	for {
-		select {
-		case <-ticker.C:
-			log.Println("tick")
+    for {
+        select {
+        case <-ticker.C:
+            log.Println("tick")
 
         // Read from channel if this worker unit should stop
-		case <-um.ShouldStop():
+        case <-um.ShouldStop():
 
             // Shutdown work for current unit
-			w.Shutdown()
+            w.Shutdown()
 
             // Notify manager that this unit is done.
-			um.Done()
-		}
-	}
+            um.Done()
+        }
+    }
 }
 
 func (w *Worker) Shutdown() {
