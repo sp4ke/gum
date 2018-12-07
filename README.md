@@ -92,7 +92,7 @@ func main() {
 The github repo is just a mirror.
 
 For any question or issues use the repo hosted at
-https://git.sp4ke.com/sp4ke/gum. 
+https://git.sp4ke.com/sp4ke/gum.git
 
 
 
