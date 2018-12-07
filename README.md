@@ -49,6 +49,7 @@ func main() {
 ```
 
 ## Issues and Comments
+The github repo is just a mirror.
 
 For any question or issues use the repo hosted at
-https://git.sp4ke.com/sp4ke/gum. The github repo is just a mirror.
+https://git.sp4ke.com/sp4ke/gum. 
