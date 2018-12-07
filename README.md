@@ -25,7 +25,7 @@ The `Manager` handles communication and synchronized shutdown procedure.
 3. Add units to the manager
 4. Start the manager and wait on it's `Quit` channel
 
-```
+```golang
 func main() {
     // Create a unit manager
 	manager := gum.NewManager()
