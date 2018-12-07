@@ -13,7 +13,7 @@ Features:
 ## Overview
 
 A unit is a type that implements `WorkUnit` interface. The `Spawn()` method
-of registered units are run in goroutines. 
+of each registered unit is spawned in its own goroutine.
 
 The `Manager` handles communication and synchronized shutdown procedure.
 
