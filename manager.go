@@ -72,7 +72,7 @@ func (m *Manager) Start() {
 			// All workers have shutdown
 			log.Println("All workers have shutdown, shutting down manager ...")
 
-			m.quit <- true
+			m.Quit <- true
 
 		}
 	}
@@ -102,7 +102,7 @@ func (m *Manager) AddUnit(unit WorkUnit) {
 func NewManager() *Manager {
 	return &Manager{
 		signal:  make(chan os.Signal, 1),
-		quit:    make(chan bool),
+		Quit:    make(chan bool),
 		workers: make(map[string]*WorkUnitManager),
 	}
 }
