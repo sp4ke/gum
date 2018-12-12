@@ -35,7 +35,7 @@ import (
 
 type Worker struct{}
 
-// Example loop, it will be spwaned in a goroutine
+// Example loop, will be spwaned inside a goroutine
 func (w *Worker) Spawn(um UnitManager) {
     ticker := time.NewTicker(time.Second)
 
@@ -75,9 +75,11 @@ func main() {
 
     // NewWorker returns a type implementing WorkUnit interface unit :=
     worker := NewWorker()
+    worker2 := NewWorker()
 
     // Register the unit with the manager
     manager.AddUnit(worker)
+    manager.AddUnit(worker2)
 
     // Start the manager
     go manager.Start()

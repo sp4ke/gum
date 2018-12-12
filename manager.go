@@ -5,8 +5,11 @@ import (
 	"os"
 	"os/signal"
 	"reflect"
+	"strconv"
 	"strings"
 )
+
+var idGen = IdGenerator()
 
 type WorkUnit interface {
 	Spawn(UnitManager)
@@ -43,7 +46,9 @@ func (w *WorkUnitManager) Panic(err error) {
 }
 
 type Manager struct {
-	signal chan os.Signal
+	signalIn chan os.Signal
+
+	shutdownSigs []os.Signal
 
 	workers map[string]*WorkUnitManager
 
@@ -62,8 +67,9 @@ func (m *Manager) Start() {
 
 	for {
 		select {
-		case sig := <-m.signal:
-			if sig != os.Interrupt {
+		case sig := <-m.signalIn:
+
+			if !in(m.shutdownSigs, sig) {
 				break
 			}
 
@@ -120,7 +126,21 @@ func (m *Manager) Start() {
 }
 
 func (m *Manager) ShutdownOn(sig os.Signal) {
-	signal.Notify(m.signal, sig)
+	signal.Notify(m.signalIn, sig)
+
+	m.shutdownSigs = append(m.shutdownSigs, sig)
+}
+
+type IDGenerator func(string) int
+
+func IdGenerator() IDGenerator {
+	ids := make(map[string]int)
+
+	return func(unit string) int {
+		ret := ids[unit]
+		ids[unit]++
+		return ret
+	}
 }
 
 func (m *Manager) AddUnit(unit WorkUnit) {
@@ -135,17 +155,29 @@ func (m *Manager) AddUnit(unit WorkUnit) {
 	unitType := reflect.TypeOf(unit)
 	unitName := strings.Split(unitType.String(), ".")[1]
 
+	unitId := idGen(unitName)
+	unitName += strconv.Itoa(unitId)
+
 	log.Println("Adding unit ", unitName)
 
 	m.workers[unitName] = workUnitManager
-	log.Println(m.workers)
 }
 
 func NewManager() *Manager {
 	return &Manager{
-		signal:  make(chan os.Signal, 1),
-		Quit:    make(chan bool, 1),
-		workers: make(map[string]*WorkUnitManager),
-		panic:   make(chan error, 1),
+		signalIn: make(chan os.Signal, 1),
+		Quit:     make(chan bool, 1),
+		workers:  make(map[string]*WorkUnitManager),
+		panic:    make(chan error, 1),
 	}
+}
+
+// Test if signal is in array
+func in(arr []os.Signal, sig os.Signal) bool {
+	for _, s := range arr {
+		if s == sig {
+			return true
+		}
+	}
+	return false
 }
