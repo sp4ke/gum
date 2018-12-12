@@ -65,8 +65,8 @@ func DoRunMain(pid chan int, quit chan<- bool) {
 	go manager.Start()
 
 	// Wait for all units to shutdown gracefully through their `Shutdown` method
-	<-manager.Quit
-	quit <- true
+	quit <- <-manager.Quit
+
 }
 
 func TestRunMain(t *testing.T) {
