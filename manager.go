@@ -92,10 +92,7 @@ func (m *Manager) Start() {
 
 			m.Quit <- true
 
-			//TODO: wait on Quit signal from any WorkerUnit
 		case p := <-m.panic:
-			//TODO: refactor shutdown procedure and reuse here
-			// send shutdown event to all worker units
 
 			for name, w := range m.workers {
 				if w.isPaniced {
