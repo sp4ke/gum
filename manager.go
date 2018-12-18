@@ -12,7 +12,7 @@ import (
 var idGen = IdGenerator()
 
 type WorkUnit interface {
-	Spawn(UnitManager)
+	Run(UnitManager)
 	Shutdown()
 }
 
@@ -57,12 +57,12 @@ type Manager struct {
 	panic chan error // Used for panicing goroutines
 }
 
-func (m *Manager) Start() {
+func (m *Manager) Run() {
 	log.Println("Starting manager ...")
 
 	for unitName, w := range m.workers {
 		log.Printf("Starting <%s>\n", unitName)
-		go w.unit.Spawn(w)
+		go w.unit.Run(w)
 	}
 
 	for {

@@ -13,7 +13,7 @@ var WorkerID int
 type Worker struct{}
 
 // Example loop, it will be spwaned in a goroutine
-func (w *Worker) Spawn(um UnitManager) {
+func (w *Worker) Run(um UnitManager) {
 	ticker := time.NewTicker(time.Second)
 
 	// Worker's loop
@@ -62,7 +62,7 @@ func DoRunMain(pid chan int, quit chan<- bool) {
 	manager.AddUnit(worker2)
 
 	// Start the manager
-	go manager.Start()
+	go manager.Run()
 
 	// Wait for all units to shutdown gracefully through their `Shutdown` method
 	quit <- <-manager.Quit
