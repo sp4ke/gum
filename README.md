@@ -30,7 +30,7 @@ import (
     "os"
     "log"
     "time"
-    "git.sp4ke.com/sp4ke/gum"
+    gum "git.sp4ke.com/sp4ke/gum.git"
 )
 
 type Worker struct{}
